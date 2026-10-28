@@ -35,12 +35,12 @@ public final class Interpreter {
         int cir = 0; // current instruction registry
 
         boolean reachedHalt = false;
-        while (!reachedHalt) {
+        while (!reachedHalt && cir < this.configuration.memorySize()) {
             Instruction instruction = Instruction.unpack(memory.get(cir++));
             switch (instruction.type()) {
                 case HALT -> reachedHalt = true;
-                case ADD -> accumulator += memory.get(instruction.value());
-                case SUBTRACT -> accumulator -= memory.get(instruction.value());
+                case ADD -> accumulator = wrapAccumulator(accumulator + memory.get(instruction.value()));
+                case SUBTRACT -> accumulator = wrapAccumulator(accumulator - memory.get(instruction.value()));
                 case STORE -> memory.set(instruction.value(), accumulator);
                 case LOAD -> accumulator = memory.get(instruction.value());
                 case BRANCH -> cir = instruction.value();
@@ -66,5 +66,9 @@ public final class Interpreter {
             Instruction instruction = instructions.get(i);
             this.memory.set(i, instruction.type() == InstructionType.DATA ? instruction.value() : instruction.pack());
         }
+    }
+
+    private static short wrapAccumulator(int value) {
+        return (short) (Math.floorMod(value + 999, 1999) - 999);
     }
 }
