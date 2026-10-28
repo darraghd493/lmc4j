@@ -30,6 +30,7 @@ public final class CCodeGenerator implements SourceCodeGenerator { // TODO: Clea
         builder.append("#include <stdio.h>").append(NEW_LINE) // we will only be making standard input/output std calls so this is fine
                 .append("#include <stdlib.h>").append(NEW_LINE)
                 .append("#define put_memory_value(memory, address, value) memory[address] = value;").append(NEW_LINE)
+                .append("#define accumulator_wrap(value) ((value + 999) % 1999) - 999;").append(NEW_LINE)
                 .append("short memory[").append(this.configuration.memorySize()).append("];").append(NEW_LINE)
                 .append("short accumulator = 0;").append(NEW_LINE)
                 .append("void main() {").append(NEW_LINE);
@@ -51,8 +52,8 @@ public final class CCodeGenerator implements SourceCodeGenerator { // TODO: Clea
 
             builder.append(getLabel(i, generatedLabels)).append(":").append(NEW_LINE);
             switch (instruction.type()) {
-                case ADD -> builder.append("accumulator += memory[").append(instruction.value()).append("];").append(NEW_LINE);
-                case SUBTRACT -> builder.append("accumulator -= memory[").append(instruction.value()).append("];").append(NEW_LINE);
+                case ADD -> builder.append("accumulator = accumulator_wrap(accumulator + memory[").append(instruction.value()).append("]);").append(NEW_LINE);
+                case SUBTRACT -> builder.append("accumulator = accumulator_wrap(accumulator - memory[").append(instruction.value()).append("]);").append(NEW_LINE);
                 case STORE -> builder.append("put_memory_value(memory, ").append(instruction.value()).append(", accumulator);").append(NEW_LINE);
                 case LOAD -> builder.append("accumulator = memory[").append(instruction.value()).append("];").append(NEW_LINE);
                 case BRANCH -> builder.append("goto ").append(getLabel(instruction.value(), generatedLabels)).append(";").append(NEW_LINE);
