@@ -3,8 +3,8 @@ package me.darragh.lmc4j.codegen.impl;
 import lombok.RequiredArgsConstructor;
 import me.darragh.lmc4j.ast.Instruction;
 import me.darragh.lmc4j.ast.InstructionType;
-import me.darragh.lmc4j.codegen.CodeGenerator;
 import me.darragh.lmc4j.codegen.CodeGeneratorConfiguration;
+import me.darragh.lmc4j.codegen.SourceCodeGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @see me.darragh.lmc4j.codegen.CodeGenerator
+ * @see SourceCodeGenerator
  * @author darraghd493
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public final class CCodeGenerator implements CodeGenerator { // TODO: Clean up the generated code to be more readable and efficient
+public final class CCodeGenerator implements SourceCodeGenerator { // TODO: Clean up the generated code to be more readable and efficient
     private final @NotNull CodeGeneratorConfiguration configuration;
 
     public CCodeGenerator() {

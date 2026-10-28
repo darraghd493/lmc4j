@@ -1,6 +1,6 @@
 import me.darragh.lmc4j.ast.Instruction;
-import me.darragh.lmc4j.codegen.CodeGenerator;
 import me.darragh.lmc4j.codegen.CodeGeneratorConfiguration;
+import me.darragh.lmc4j.codegen.SourceCodeGenerator;
 import me.darragh.lmc4j.codegen.impl.CCodeGenerator;
 import me.darragh.lmc4j.parser.Parser;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +11,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CodeGeneratorTest {
+class CCodeGeneratorTest {
     private Parser parser;
-    private CodeGenerator generator;
+    private SourceCodeGenerator generator;
 
     @BeforeEach
     void setUp() {
@@ -40,7 +40,7 @@ class CodeGeneratorTest {
     @Test
     @DisplayName("Applies custom memory size configuration")
     void testCustomMemorySize() {
-        CodeGenerator customGenerator = new CCodeGenerator(new CodeGeneratorConfiguration(256));
+        SourceCodeGenerator customGenerator = new CCodeGenerator(new CodeGeneratorConfiguration(256));
         String code = "HLT";
         List<Instruction> instructions = parser.parse(code);
 
