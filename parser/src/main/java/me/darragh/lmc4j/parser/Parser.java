@@ -35,7 +35,6 @@ public final class Parser {
             if (line.isEmpty()) continue;
 
             String[] tokens = line.split("\\s+");
-            System.out.println("Parsing line: " + line + " -> tokens: " + Arrays.toString(tokens));
 
             switch (tokens.length) {
                 case 1 -> {
