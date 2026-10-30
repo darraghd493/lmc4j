@@ -81,8 +81,8 @@ class CCodeGeneratorTest {
 
         String cCode = generator.generate(instructions);
 
-        assertTrue(cCode.contains("accumulator += memory[3];"));
-        assertTrue(cCode.contains("accumulator -= memory[4];"));
+        assertTrue(cCode.contains("accumulator = accumulator_wrap(accumulator + memory[3]);"));
+        assertTrue(cCode.contains("accumulator = accumulator_wrap(accumulator - memory[4]);"));
     }
 
     @Test
@@ -178,7 +178,7 @@ class CCodeGeneratorTest {
         assertTrue(cCode.contains("scanf(\"%d\", &accumulator);"));
         assertTrue(cCode.contains("put_memory_value(memory, 9, accumulator);"));
         assertTrue(cCode.contains("accumulator = memory[9];"));
-        assertTrue(cCode.contains("accumulator -= memory[8];"));
+        assertTrue(cCode.contains("accumulator = accumulator_wrap(accumulator - memory[8]);"));
         assertTrue(cCode.contains("printf(\"%d\\n\", accumulator);"));
         assertTrue(cCode.contains("if (accumulator >= 0) {"));
         assertTrue(cCode.contains("exit(0);"));
