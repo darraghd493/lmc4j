@@ -3,6 +3,7 @@
 A clean and simple Java library for working with LMC (Little Man Computer) programs.
 
 > Please see [lmc-interpreter](https://github.com/darraghd493/lmc-interpreter) for my original JavaScript implementation of the LMC instruction set.
+> To see my old implementation of LMC in Java, check out [lmc-interpreter-java](https://github.com/darraghd493/lmc-interpreter-java).
 
 ## Compatibility
 
